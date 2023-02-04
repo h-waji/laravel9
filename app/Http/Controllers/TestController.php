@@ -9,6 +9,8 @@ class TestController extends Controller
 {
     public function index()
     {
+        dd('test');
+
         $values = Test::all();
 
         // dd($values);
