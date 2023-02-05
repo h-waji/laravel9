@@ -10,10 +10,16 @@ use App\Http\Requests\UpdateContactRequest;
 
 class ContactFormController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // $contacts = ContactForm::select('id', 'name', 'title', 'created_at')->get();
-        $contacts = ContactForm::select('id', 'name', 'title', 'created_at')->paginate(20);
+        // ペジネーション対応
+        // $contacts = ContactForm::select('id', 'name', 'title', 'created_at')->paginate(20);
+
+        $search = $request->search;
+        $query = ContactForm::search($search);
+        $contacts = $query->select('id', 'name', 'title', 'created_at')->paginate(20);
+
         return view('contacts.index', compact('contacts'));
     }
 

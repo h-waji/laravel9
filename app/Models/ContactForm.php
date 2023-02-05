@@ -18,4 +18,17 @@ class ContactForm extends Model
         'age',
         'contact',
     ];
+
+    public function scopeSearch($query, $search)
+    {
+        if ($search !== null) {
+            $search_split = mb_convert_kana($search, 's'); // 全角スペースを半角スペースに変換
+            $search_split2 = preg_split('/[\s]+/', $search_split); // 空白で分割する
+
+            foreach ($search_split2 as $value) {
+                $query->where('name', 'like', '%' . $value . '%');
+            }
+        }
+        return $query;
+    }
 }
