@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ContactForm;
 use App\Services\CheckFormService;
 use App\Http\Requests\StoreContactRequest;
+use App\Http\Requests\UpdateContactRequest;
 
 class ContactFormController extends Controller
 {
@@ -53,7 +54,7 @@ class ContactFormController extends Controller
         return view('contacts.edit', compact('contact'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateContactRequest $request, $id)
     {
         $contact = ContactForm::find($id);
         $contact->name = $request->name;
